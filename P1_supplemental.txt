@@ -1,10 +1,15 @@
+Encho Genchev
+Fabian Ochoa
+
 Answer questions marked as "QS"
 
 QS1.1:
-
+DFS uses a stack. DFS goes as deep as possible into the maze before backtracking to the most recent unexplored path.
+A Stack is the optimal data structure for this because it can quickly push values to go deep into the maze and then quickly 
+pop values until the most recent unexplored path is found. 
 
 QS1.2:
-
+Yes, the exploration order is what was expected. Pacman does NOT go to all the explored states since DFS had to backtrack a few times.
 
 QS2.1:
 
