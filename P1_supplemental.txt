@@ -12,7 +12,9 @@ QS1.2:
 Yes, the exploration order is what was expected. Pacman does NOT go to all the explored states since DFS had to backtrack a few times.
 
 QS2.1:
-
+BFS uses a queue because it needs to search the nodes closest to the start first before moving on. The FIFO behavior of a queue simplifies this
+since the nodes placed first in the queue will be the layer closest to the start and the nodes later in the queue will be their successors.
+This ensures BFS works properly and expands evenly in all directions.
 
 QS3.1:
 
