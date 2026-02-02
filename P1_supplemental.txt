@@ -17,8 +17,12 @@ since the nodes placed first in the queue will be the layer closest to the start
 This ensures BFS works properly and expands evenly in all directions.
 
 QS3.1:
-
-
+For the "StayEastSearchAgent" we used the cost function costFn = lambda pos: .5 ** pos[0]. This function penalizes positions further 
+west (smaller x) and strongly rewards positions further east (larger x). Because the cost decreases exponentially as x increases, UCS prefers 
+paths that stay as far east as possible, even if the path is longer in terms of steps. The exponential weighting causes the total path cost to be very small.
+For the "StaryWestSearchAgent" we used the cost function costFn = lambda pos: 2 ** pos[0]. This function penalizes positions further east (larger x)
+with exponentially increasing cost. As a result, UCS strongly favors paths that stay on the west side of the board. Even a small movement east significantly
+increases the total cost, which leads to very large path costs overall.
 
 QS4.1:
 

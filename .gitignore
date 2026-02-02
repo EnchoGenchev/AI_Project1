@@ -1,0 +1,15 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+.AI_env
+AI_env/
+
+# OS junk
+.DS_Store
