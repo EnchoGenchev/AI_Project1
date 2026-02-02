@@ -25,7 +25,9 @@ with exponentially increasing cost. As a result, UCS strongly favors paths that 
 increases the total cost, which leads to very large path costs overall.
 
 QS4.1:
-
+The nullHeuristic simply returns 0 making it equivilant to the UCS algorithm. The manhattanHeuristic calulates the function 
+abs(xy1[0] - xy2[0]) + abs(xy1[1] - xy2[1]) giving the distance from the node to the goal. The manhattanHeuristic is better because it gives the 
+algorithm more information about the states distance from the goal which is used to expand on better nodes quicker.
 
 QS5.1:
 
