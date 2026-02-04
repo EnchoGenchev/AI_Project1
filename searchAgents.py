@@ -311,7 +311,12 @@ class CornersProblem(search.SearchProblem):
         """
         Returns whether this search state is a goal state of the problem.
         """
-        "*** YOUR CODE HERE ***"
+        #state[1] has booleans of visited corners
+        visited_corners = state[1]
+        
+        #checks if all booleans are true
+        return all(visited_corners)
+
         util.raiseNotDefined()
 
     def getSuccessors(self, state: Any):
@@ -326,17 +331,35 @@ class CornersProblem(search.SearchProblem):
         """
 
         successors = []
+        currentPosition, visited_corners = state
+
+        #loop checks all for directions that pacman can go
         for action in [Directions.NORTH, Directions.SOUTH, Directions.EAST, Directions.WEST]:
             # Add a successor state to the successor list if the action is legal
             # Here's a code snippet for figuring out whether a new position hits a wall:
-            #   x,y = currentPosition
-            #   dx, dy = Actions.directionToVector(action)
-            #   nextx, nexty = int(x + dx), int(y + dy)
-            #   hitsWall = self.walls[nextx][nexty]
+            x, y = currentPosition
+            dx, dy = Actions.directionToVector(action)
+            nextx, nexty = int(x + dx), int(y + dy)
+            hitsWall = self.walls[nextx][nexty]
+            
+            #Check if the move does not hit wall
+            if not hitsWall:
+                nextPosition = (nextx, nexty)
 
-            "*** YOUR CODE HERE ***"
+                new_visited_list = list(visited_corners) #temp variable to change values
+                for i in range(len(self.corners)):
+                    #if moving that direction gets to a corner change visited to true
+                    if nextPosition == self.corners[i]:
+                        new_visited_list[i] = True
+                
+                #changing back to tuple from list
+                next_visited_tuple = tuple(new_visited_list)
+                
+                #adding this move to the list of states
+                successor_state = (nextPosition, next_visited_tuple)
+                successors.append((successor_state, action, 1))
 
-        self._expanded += 1 # DO NOT CHANGE
+        self._expanded += 1
         return successors
 
     def getCostOfActions(self, actions):
