@@ -39,3 +39,6 @@ QS6.1:
 
 
 QS7.1:
+We used a heuristic that returns the maximum maze distance from the current position to any remaining food dot. This heuristic is admissible because any 
+solution must at least reach the farthest food, and it is more informative than Manhattan distance since it accounts for walls. Its main weakness is that 
+it ignores the cost of visiting multiple food dots. The heuristic value can change by at most the cost of a single move.
