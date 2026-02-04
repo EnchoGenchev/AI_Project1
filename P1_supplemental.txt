@@ -42,7 +42,10 @@ pacman does not hit a wall, and updates the corner values if pacman ends up in a
 are true, that means pacman can take the path found by the search algorithm to each corner.
 
 QS6.1:
-
+Our heuristic calculates where the nearest corner is by manhattan distance. The strong points of this heuristic are that manhattan distance is simple to calculate
+and always admissible. The weak point is that manhattan distance ignores walls completely, which can lead to expanding more nodes than needed. 
+Since the heuristic ignores walls, it is consistent: Manhattan distance is always less than or equal to the actual distance to the nearest corner because it assumes there
+are no obstructions.
 
 QS7.1:
 We used a heuristic that returns the maximum maze distance from the current position to any remaining food dot. This heuristic is admissible because any 
