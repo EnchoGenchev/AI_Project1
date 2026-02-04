@@ -42,3 +42,9 @@ QS7.1:
 We used a heuristic that returns the maximum maze distance from the current position to any remaining food dot. This heuristic is admissible because any 
 solution must at least reach the farthest food, and it is more informative than Manhattan distance since it accounts for walls. Its main weakness is that 
 it ignores the cost of visiting multiple food dots. The heuristic value can change by at most the cost of a single move.
+
+
+QS8.1:
+The solution works by first getting a list of all the food in the problem. Then we iterate through the food calculating the distance for each 
+using mazeDistance(). Once the closest is found we create a problem in which the start state remains the same however we set the goal state to the food that
+we determined has the shortest distance. Finally we use search.ucs() to get the shortest path from the start state to the closest food.  
