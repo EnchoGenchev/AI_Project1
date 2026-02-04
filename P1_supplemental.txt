@@ -30,10 +30,16 @@ abs(xy1[0] - xy2[0]) + abs(xy1[1] - xy2[1]) giving the distance from the node to
 algorithm more information about the states distance from the goal which is used to expand on better nodes quicker.
 
 QS5.1:
-
+The state representation for this problem consists of the current position of pacman (x, y) and a tuple containing boolean values for each corner,
+the value being true if the corner has been visited and false if not. This tracks where pacman is and what corners still need to be visited.
+This also keeps the state space minimal since we only care about pacman getting to all four corners, not necessarily all the combinations of paths
+to get there.
 
 QS5.2:
-
+The corners problem gets the start state and checks if pacman starts in a corner, changing the boolean value of that corner accordingly. A search algorithm
+can then use the getSuccessors to test every direction that pacman can move to find the four corners. GetSuccessors checks all 4 directions, makes sure that
+pacman does not hit a wall, and updates the corner values if pacman ends up in a corner. When the goal state is found and all boolean values of visited_corners
+are true, that means pacman can take the path found by the search algorithm to each corner.
 
 QS6.1:
 
