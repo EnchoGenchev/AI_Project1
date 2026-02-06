@@ -517,12 +517,16 @@ def foodHeuristic(state: Tuple[Tuple, List[List]], problem: FoodSearchProblem):
     problem.heuristicInfo['wallCount']
     """
     position,foodGrid = state
-    if problem.isGoalState(state):
+    if problem.isGoalState(state):# if the state is the goal state the heuristic should always be 0
         return 0
-    targets = foodGrid.asList()
-    farthest = -1
+    
+    targets = foodGrid.asList() #list of food in the problem
+    farthest = -1 # farthest is the farthest food item in the list
+
     start_state = problem.startingGameState
     idx = 0
+
+    #loop through targets to find the farthest dot to the current state
     while idx < len(targets):
         candidate = targets[idx]
         d = mazeDistance(position, candidate, start_state)
@@ -530,7 +534,7 @@ def foodHeuristic(state: Tuple[Tuple, List[List]], problem: FoodSearchProblem):
             farthest = d
         idx += 1
 
-    return farthest
+    return farthest #return the distance to the furthest dot wrt to the current state
 
 class ClosestDotSearchAgent(SearchAgent):
     "Search for all food using a sequence of searches"
@@ -561,15 +565,22 @@ class ClosestDotSearchAgent(SearchAgent):
         problem = AnyFoodSearchProblem(gameState)
 
         "*** YOUR CODE HERE ***"
-        if food:
+        if food: #check if food list is empty, assign closest to first element in food list
             closest = food[0]
+
+        # loop through food and find the closest dot in the list wrt starting position  
         for dot in food:
             dist = mazeDistance(startPosition,dot,gameState)
             closeDist = mazeDistance(startPosition,closest,gameState)
             if dist < closeDist:
                 closest = dot
+
+        # create a problem with gameState, startPostion, and goal set to the closest food dot we found      
         prob = PositionSearchProblem(gameState,start=startPosition,goal=closest,warn=False, visualize=False)
+       
+        # use ucs to return the shortest path to the dot given the problem previously constructed 
         path = search.ucs(problem=prob)
+
         return path
 
 class AnyFoodSearchProblem(PositionSearchProblem):

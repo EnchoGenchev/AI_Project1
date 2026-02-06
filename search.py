@@ -154,26 +154,25 @@ def breadthFirstSearch(problem: SearchProblem):
 def uniformCostSearch(problem: SearchProblem):
     from math import inf
     pq = util.PriorityQueue()
-    start = problem.getStartState()
-    # best known cost to each state
-    dist = {start: 0}
-    # best known path (list of actions) to each state
-    path = {start: []}
+    start = problem.getStartState()                      
+    dist = {start: 0} # map for best known cost to each state
+    
+    path = {start: []} # map for best known path (list of actions) to each state, insert start
     pq.push(start, 0)
 
     while not pq.isEmpty():
-        state = pq.pop()
+        state = pq.pop()# highest priority goes first
 
         # If this pop is stale (we already found a cheaper way), skip it
         current_cost = dist[state]
 
-        if problem.isGoalState(state):
+        if problem.isGoalState(state): # If goal start is found return the path
             return path[state]
 
         for succ, action, stepCost in problem.getSuccessors(state):
-            new_cost = current_cost + stepCost
+            new_cost = current_cost + stepCost # calculate the new cost of the successor
 
-            if new_cost < dist.get(succ, inf):
+            if new_cost < dist.get(succ, inf): # if new cost is less than previous update the states path and dist value
                 dist[succ] = new_cost
                 path[succ] = path[state] + [action]
                 pq.update(succ, new_cost)
@@ -191,36 +190,36 @@ def nullHeuristic(state, problem=None):
 
 def aStarSearch(problem: SearchProblem, heuristic=nullHeuristic):
     from math import inf
-    pq = util.PriorityQueue()
+    pq = util.PriorityQueue()#priority queue data structure
     start = problem.getStartState()
 
-    g = {start: 0}          # best known g-costs
-    path = {start: []}      # best paths
-    pq.push(start, heuristic(start, problem))  # f = 0 + h(start)
+    g = {start: 0}          # map for best known g-costs
+    path = {start: []}      # map for best paths
+    pq.push(start, heuristic(start, problem))  # push start to queue f = 0 + h(start)
 
-    visited = set()
+    visited = set() # set for visited states
 
-    while not pq.isEmpty():
-        state = pq.pop()
+    while not pq.isEmpty(): #loop until no more options
+        state = pq.pop() #start with highest priority 
 
-        if state in visited:
+        if state in visited:#used to avoid cycles if visited ignore stae
             continue
         visited.add(state)
 
-        if problem.isGoalState(state):
+        if problem.isGoalState(state):#path to problem found return the path
             return path[state]
 
-        for succ, action, stepCost in problem.getSuccessors(state):
+        for succ, action, stepCost in problem.getSuccessors(state):# if succ visited ignore
             if succ in visited:
                 continue
 
-            new_g = g[state] + stepCost
+            new_g = g[state] + stepCost #calculate g(state)
 
             # strict < to match expected expansion order on ties
-            if new_g < g.get(succ, inf):
+            if new_g < g.get(succ, inf):# if g_new(state) < g_old(state)
                 g[succ] = new_g
                 path[succ] = path[state] + [action]
-                cost = new_g + heuristic(succ, problem)
+                cost = new_g + heuristic(succ, problem)# calculate the total cost g() + h()
                 pq.update(succ, cost)
 
     return []
